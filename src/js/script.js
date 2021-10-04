@@ -199,7 +199,7 @@ onload = function () {
 
 ];
   
-  const renderGoodsItem = (img, name, price) => {
+  const renderGoodsItem = (img, name='имя товара', price=0) => {
     
     return `<div class="goods-item"><img class="product_photo" src=${img}><h3>${name}</h3><p>${price}</p><button class="add_btn">добавить</button></div>`;
   };
