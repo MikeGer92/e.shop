@@ -15,14 +15,14 @@ class GoodsItem {
             `;
     }
 }
-
 class GoodsList {
     
     constructor() {
         this.goods = [];
         this.readGoods();
-        this.renderGoodsList();
+        this.renderGoodsList();   
     }
+
     readGoods() {
         this.goods = [
             {
@@ -85,7 +85,14 @@ class GoodsList {
         });
 
         document.querySelector('.goods-list').innerHTML = goodsItem.join('');
+        document.querySelector('.calc-goods-list').innerText = this.calcGoodsList();
+    }
 
+    calcGoodsList() {
+        return this.goods.reduce(function (price, good) {
+              return price + good.price;
+        }, 0);
+        
     }
 }
 class BasketItem {
@@ -107,14 +114,14 @@ class BasketItem {
             <button class="add_btn">удалить</button>
             </div>
             `;
-    }
-    
+    }    
 }
 class BasketList {
     constructor() {
         this.baskList = [];
         this.readGoods();
         this.renderBaskList();
+        this.calcGoodsList();
     }
     readGoods() {
         this.goods = [
@@ -168,7 +175,6 @@ class BasketList {
                 img: '/src/catalog/images/pr7.jpg'
             },
         ];
-
     }
 
     renderBaskList() {
@@ -187,3 +193,5 @@ class BasketList {
 onload = () => {
     const goodsList = new GoodsList();
 };
+
+
