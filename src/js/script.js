@@ -115,8 +115,7 @@ class BasketItem {
             </div>
             `;
     }    
-}
-class BasketList {
+}class BasketList {
     constructor() {
         this.baskList = [];
         this.readGoods();
@@ -188,7 +187,6 @@ class BasketList {
     }
 
 }
-
 
 onload = () => {
     const goodsList = new GoodsList();
