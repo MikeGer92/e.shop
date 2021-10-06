@@ -7,7 +7,7 @@
     height: 240px;
     border: 1px solid #000;
     margin-bottom: 5px;
-    background: pink;
+    background: lightblue;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,4 +16,16 @@
     display: flex;
     justify-content: space-around;
     margin-top: 30px;
+    overflow: visible;
+}
+.calc-goods-list {
+    width: 240px;
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    font-size: 30px;
+    color: orangered;
+    border: 1px solid #000;
+
 }
