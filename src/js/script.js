@@ -115,8 +115,10 @@ class BasketItem {
             </div>
             `;
     }    
+
 }
 class BasketList {
+
     constructor() {
         this.baskList = [];
         this.readGoods();
