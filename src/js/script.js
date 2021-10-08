@@ -1,26 +1,36 @@
+const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+const GOODS = '/catalogData.json';
 class GoodsItem {
-    constructor(img, name='deffault name', price=0) {
+    constructor(img='foto', name='deffault name', price=0, id_product=0) {
         this.img = img;
         this.name = name;
         this.price = price;
+        this.id_product = id_product;
+
     }
     renderGoodsItem() {
         return  `
             <div class="goods-item">
-            <img class="product_photo" src=${this.img}>
-            <h3>${this.name}</h3>
-            <p>${this.price}</p>
-            <button class="add_btn">добавить</button>
-            </div>
+                <img class="product_photo" src=${this.img}>
+                <h3>${this.name}</h3>
+                <p>${this.price}</p>
+                <button class="add_btn" data-id_product = "${this.id_product}">добавить</button>
+                </div>
             `;
     }
+
 }
 class GoodsList {
     
     constructor() {
         this.goods = [];
-        this.readGoods();
-        this.renderGoodsList();   
+        this.basket = [];
+        // this.readGoods();
+        this.fetchGoods(() => {
+            this.renderGoodsList();
+            this.addBtn = document.querySelectorAll('.add_btn');
+            this.addBtn.forEach(btn => btn.addEventListener('click', () => this.addToBasket(event)));
+        });    
     }
 
     readGoods() {
@@ -77,10 +87,19 @@ class GoodsList {
         ];
 
     }
+    fetchGoods(callback) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `${API}${GOODS}`, true);
+        xhr.send();
+        xhr.onload = () => {
+            this.goods = JSON.parse(xhr.responseText);
+            callback();
+        };
+    }
 
     renderGoodsList() {
-        const goodsItem = this.goods.map(({img, name, price}) => {
-            const goodsItem = new GoodsItem(img, name, price);
+        const goodsItem = this.goods.map(({img, product_name, price, id_product}) => {
+            const goodsItem = new GoodsItem(img, product_name, price, id_product);
             return goodsItem.renderGoodsItem();
         });
 
@@ -94,25 +113,50 @@ class GoodsList {
         }, 0);
         
     }
+    addToBasket(event) {
+        if (!event.target.classList.contains('add_btn')) return;
+        const id_product = event.target.dataset.id_product;
+        const prodToAdd = this.goods.find(good => good.id_product == id_product);
+        this.addToBasketList(prodToAdd);
+     
+    }
+    addToBasketList(good) {
+
+        if (good) {
+            const findInBasket = this.basket.find(item => item.id_product == good.id_product);
+            console.log(findInBasket);
+            if (findInBasket) {
+                findInBasket.quantity++;
+            } else {
+                this.basket.push({...good, quantity: 1});
+            }
+        } else {
+            alert('Ошибка добавления!');
+        }
+        console.log(this.basket);
+    }
+    
 }
 class BasketItem {
-    constructor(img, name='deffault name', price=0) {
+    constructor(id_product=0, img='photo', name='deffault name', price=0, quantity=0 ) {
+        this.id_product = id_product;
         this.img = img;
         this.name = name;
         this.price = price;
-        this.quantity = this.quantity;
+        this.quantity = quantity;  
     }
 
     renderBasketItem() {
         return  `
-            <div class="goods-item">
-            <img class="product_photo" src=${this.img}>
-            <h3>${this.name}</h3>
-            <p>${this.price}</p>
-            <div class='prod_quant'>
-                <b>Количество</b>: ${this.quantity} шт./кг.</div>
-            <button class="add_btn">удалить</button>
-            </div>
+            <div class="basket-item">
+                <p>${this.id_product}</p>
+                <img class="product_photo" src=${this.img}>
+                <h3>${this.name}</h3>
+                <p>цена: ${this.price} р.</p>
+                <div class='prod_quant'>
+                    <b>Количество</b>: ${this.quantity} шт./кг.</div>
+                <button class="add_btn">удалить</button>
+                </div>
             `;
     }    
 
@@ -120,57 +164,60 @@ class BasketItem {
 class BasketList {
 
     constructor() {
-        this.baskList = [];
+        this.bask = [];
         this.readGoods();
-        this.renderBaskList();
-        this.calcGoodsList();
+        this.renderBaskList(); 
+        this.baskBtn = document.querySelector('.cart-button');
+        this.basketList = document.querySelector('.basket');
+        this.baskBtn.addEventListener('click', () => this.showBasket());
+        
     }
     readGoods() {
-        this.goods = [
+        this.bask = [
             {
-                uin_product: 'pr1',
+                id_product: 'pr1',
                 group: 'milkProd',
                 name: 'Молоко',
                 price: 60.00,
                 img: "src/catalog/images/pr1.jpg"
             },
             {
-                uin_product: 'pr2',
+                id_product: 'pr2',
                 group: 'milkProd',
                 name: 'Йогурт',
                 price: 32.00,
                 img: 'src/catalog/images/pr2.jpg'
             },
             {
-                uin_product: 'pr3',
+                id_product: 'pr3',
                 group: 'breadProd',
                 name: 'Багет',
                 price: 40.00,
                 img: 'src/catalog/images/pr3.jpg'
             },
             {
-                uin_product: 'pr4',
+                id_product: 'pr4',
                 group: 'breadProd',
                 name: 'Круасан',
                 price: 220.00,
                 img: 'src/catalog/images/pr4.jpg'
             },
             {
-                uin_product: 'pr5',
+                id_product: 'pr5',
                 group: 'cheeseProd',
                 name: 'Сыр',
                 price: 640.00,
                 img: 'src/catalog/images/pr5.jpg'
             },
             {
-                uin_product: 'pr6',
+                id_product: 'pr6',
                 group: 'vegProd',
                 name: 'Перец',
                 price: 270.00,
                 img: '/src/catalog/images/pr6.jpg'
             },
             {
-                uin_product: 'pr7',
+                id_product: 'pr7',
                 group: 'fruProd',
                 name: 'Яблоки',
                 price: 80.00,
@@ -179,21 +226,25 @@ class BasketList {
         ];
     }
 
+    showBasket() {
+        this.basketList.classList.toggle('basket_active');
+    }
+
     renderBaskList() {
-        const goodsItem = this.goods.map(({img, name, price}) => {
-            const goodsItem = new GoodsItem(img, name, price);
-            return goodsItem.renderGoodsItem();
+        const basketItem = this.bask.map(({id_product, img, name, price, quantity}) => {
+            const basketItem = new BasketItem(id_product, img, name, price, quantity);
+            return basketItem.renderBasketItem();
         });
 
-        document.querySelector('.basket-list').innerHTML = goodsItem.join('');
+        document.querySelector('.basket').innerHTML = basketItem.join('');
 
     }
 
 }
 
-
 onload = () => {
     const goodsList = new GoodsList();
+    const baskList = new BasketList();
 };
 
 
