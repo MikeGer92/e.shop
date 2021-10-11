@@ -5,7 +5,7 @@ const ADD = '/addToBasket.json';
 const DELETE = '/deleteFromBasket.json';
 
 // первый способ работы с асинхронными запросамм (через колбэк функцию)
-// const service = function(method, postfix, callback){
+// const serviceCall = function(method, postfix, callback){
 //     const xhr = new XMLHttpRequest();
 //     xhr.open(method, `${API}${postfix}`, true);
 //     xhr.send();
@@ -15,7 +15,7 @@ const DELETE = '/deleteFromBasket.json';
 // };
 
 // второй способ работы с асинхронными запросамм (через промисы)
-const service = function(method, postfix){
+const serviceProm = function(method, postfix){
     return new Promise((resolve) => {
         const xhr = new XMLHttpRequest();
         xhr.open(method, `${API}${postfix}`, true);
@@ -54,7 +54,7 @@ class GoodsList {
     fetchList() {
         // service('GET', GOODS, (goodsList) => {
         //     this.goods = goodsList; - вариант для колбэка
-        service('GET', GOODS).then((goodsList) => {
+        serviceProm('GET', GOODS).then((goodsList) => {
             this.goods = goodsList;
         });
     }
@@ -206,19 +206,19 @@ class BasketList {
         // this.baskBtn.addEventListener('click', () => this.showBasket());
     }
     fetchBasketList() {
-        service('GET', BASKLIST, (baskList) => {
+        serviceCall('GET', BASKLIST, (baskList) => {
             this.bask = baskList;
         });
     }
 
     addToBasketList() {
-        service('GET', ADD, (baskList) => {
+        serviceCall('GET', ADD, (baskList) => {
             this.bask = baskList;
         });
     }
 
     deleteFromBaskList() {
-        service('GET', DELETE, (baskList) => {
+        serviceCall('GET', DELETE, (baskList) => {
             this.bask = baskList;
         });
     }
