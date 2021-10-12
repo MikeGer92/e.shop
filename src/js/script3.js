@@ -49,16 +49,29 @@ class GoodsItem {
 class GoodsList {
     constructor() {
         this.goods = [];
-        this.fetchList(() => {
-            this.renderGoodsList();
-            this.calcGoodsList();
-        });
-        // this.fetchGoods(() => {
+        this.filteredGoods = [];
+        // this.fetchList(() => {
         //     this.renderGoodsList();
         //     this.calcGoodsList();
         // });
+
+        this.fetchGoods(() => {
+            this.renderGoodsList();
+            this.calcGoodsList();
+        });
+        this.searchBtn = document.querySelector('.search-button');
+        this.searchInput = document.querySelector('.goods-search');
+        this.searchBtn.addEventListener('click', (e) => {
+            const value = this.searchInput.value;
+            this.filterGoods(value);
+        });
+          
     }
 
+    
+    clickTest() {
+        console.log(5);
+    }
 
     fetchGoods(callback) {
         const xhr = new XMLHttpRequest();
@@ -66,6 +79,7 @@ class GoodsList {
         xhr.send();
         xhr.onload = (event) => {
             this.goods = JSON.parse(event.target.responseText);
+            this.filteredGoods = JSON.parse(event.target.responseText);
             callback();
         };
     }
@@ -76,7 +90,7 @@ class GoodsList {
         //     console.log(this.goods); //- вариант для колбэка
         serviceProm('GET', GOODS).then((goodsList) => {
             this.goods = goodsList;
-            console.log(this.goods); 
+            this.filteredGoods = goodsList;
         });
     }
 
@@ -91,8 +105,40 @@ class GoodsList {
         document.querySelector('.calc-goods-list').innerText = this.calcGoodsList();
     }
 
+    renderFilteredList() {
+        let listHtml = '';
+        this.filteredGoods.forEach(item => {
+          const goodsItem = new GoodsItem(item.img, item.product_name, item.price, item.id_product);
+          listHtml += goodsItem.renderGoodsItem();
+        });
+        document.querySelector('.goods-list').innerHTML = listHtml;
+        document.querySelector('.calc-goods-list').innerText = this.calcFilteredList();
+    }
+
+    filterGoods(value) {
+    
+        const regexp = new RegExp(value, 'i');
+        if (value) {
+            this.filteredGoods = this.filteredGoods.filter(item => regexp.test(item.product_name));
+            this.renderFilteredList();
+            this.calcFilteredList();
+        } else {
+            this.fetchGoods(() => {
+                this.renderGoodsList();
+                this.calcGoodsList();
+            });
+        }
+        
+    }
+
     calcGoodsList() {
         return this.goods.reduce(function (price, good) {
+            return price + good.price;
+        }, 0);
+        
+    }
+    calcFilteredList() {
+        return this.filteredGoods.reduce(function (price, good) {
             return price + good.price;
         }, 0);
         
