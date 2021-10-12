@@ -50,15 +50,17 @@ class GoodsList {
     constructor() {
         this.goods = [];
         this.filteredGoods = [];
-        // this.fetchList(() => {
-        //     this.renderGoodsList();
-        //     this.calcGoodsList();
-        // });
-
-        this.fetchGoods(() => {
+        this.fetchList().then(() => {
             this.renderGoodsList();
             this.calcGoodsList();
         });
+        // this.fetchList();
+
+
+        // this.fetchGoods(() => {
+        //     this.renderGoodsList();
+        //     this.calcGoodsList();
+        // });
         this.searchBtn = document.querySelector('.search-button');
         this.searchInput = document.querySelector('.goods-search');
         this.searchBtn.addEventListener('click', (e) => {
@@ -84,14 +86,16 @@ class GoodsList {
         };
     }
 
-        fetchList() {
-        // serviceCall('GET', GOODS, (goodsList) => {
+        async fetchList() {
+        // return serviceCall('GET', GOODS, (goodsList) => {
         //     this.goods = goodsList;
-        //     console.log(this.goods); //- вариант для колбэка
-        serviceProm('GET', GOODS).then((goodsList) => {
+        //     this.filteredGoods = goodsList;
+        //     this.renderGoodsList();
+        //     this.calcGoodsList();
+            //- вариант для колбэка
+        const goodsList = await serviceProm('GET', GOODS);
             this.goods = goodsList;
             this.filteredGoods = goodsList;
-        });
     }
 
 
