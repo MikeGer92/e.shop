@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <link rel="stylesheet" href="src/css/styleV.min.css">
+</head>
+
+<body>
+    <div id="shop" class="shop">
+        <header>
+            <div class="header-item">
+            <button class="cart-button" type="button" v-on:click="methods.showBask">Корзина</button>
+            <div class="input-item">
+                <input type="text" class="goods-search" v-model="searchStr">
+                <button class="search-button" type="button" @click="methods.goodsFiltered">Искать</button>
+            </div>
+            </div>
+        </header>
+        <div class="goods-list">
+            <div class="goods-item" v-for="item in filteredGoods">
+                <!-- <goods-item v-for="item in goods" v-bind:item="item"></goods-item> -->
+                
+                <div class="item_id">{{ item.uin }}</div>
+                <div class="item_name">{{ item.name }}</div>
+                <div class="item_img"><img class="item_img" src="{{item.img}}"></div>
+                <div class="item_price">{{ item.price }}</div>
+            </div>
+        </div>
+
+        <div class="calc-goods-list"></div>
+
+        <div class="basket-goods-item" v-if="basketCardVision">
+            <div class="basket-card"  v-for="prod in basket">
+                <div class="item_id">{{ prod.uin }}</div>
+                <div class="item_name">{{ prod.name }}</div>
+                <div class="item_img"><img class="item_img" src="{{prod.img}}"></div>
+                <div class="item_price">{{ prod.price }}</div>
+            </div>
+        </div>
+    </div>
+    <script src="src/js/scriptV.js"></script>
+</body>
+</html>
