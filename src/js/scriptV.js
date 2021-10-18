@@ -4,21 +4,21 @@ const GOODS = [
         group: 'milkProd',
         name: 'Молоко',
         price: 60,
-        img: 'src/catalog/images/pr1.jpg'
+        img: '../src/catalog/images/pr1.jpg'
     },
     {
         uin: 'pr2',
         group: 'milkProd',
         name: 'Йогурт',
         price: 32,
-        img: 'catalog/images/pr2.jpg'
+        img: 'src/catalog/images/pr2.jpg'
     },
     {
         uin: 'pr3',
         group: 'breadProd',
         name: 'Багет',
         price: 40,
-        img: 'catalog/images/pr3.jpg'
+        img: '../catalog/images/pr3.jpg'
     },
     {
         uin: 'pr4',
@@ -51,17 +51,18 @@ const GOODS = [
 
 ];
 
-// Vue.component('goods-item', {
-//     props: ['item'],
-//     template:
-//         <div class="goods-item">
-//             <div class="item_id">{{ item.uin }}</div>
-//             <div class="item_name">{{ item.name }}</div>
-//             <div class="item_img">{{ item.img }}</div>
-//             <div class="item_price">{{ item.price }}</div>
-//         </div>,
-        
-// })
+Vue.component('goods-item', {
+    props: ['item'],
+    template: `
+        <div>
+            <div class="item_id">{{ item.uin }}</div>
+            <div class="item_name">{{ item.name }}</div>
+            <img src="item.img">
+            <div class="item_price">{{ item.price }}</div>
+        </div>
+        `
+  }); 
+
 const shop = new Vue({
     el: '#shop',
     data: {
@@ -93,7 +94,13 @@ const shop = new Vue({
                 shop.filteredGoods = shop.goods.filter(({ name }) => {
                 return new RegExp(shop.searchStr, 'i').test(name);
                 });
+            },
+        }, 
+        computed: {
+            coast: function() {
+                return 'coast';
             }
-        }
+        }    
+            
     }
 });

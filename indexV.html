@@ -16,18 +16,19 @@
             <button class="cart-button" type="button" v-on:click="methods.showBask">Корзина</button>
             <div class="input-item">
                 <input type="text" class="goods-search" v-model="searchStr">
-                <button class="search-button" type="button" @click="methods.goodsFiltered">Искать</button>
+                <button class="search-button" type="button" v-on:click="methods.goodsFiltered">Искать</button>
             </div>
             </div>
         </header>
         <div class="goods-list">
-            <div class="goods-item" v-for="item in filteredGoods">
-                <!-- <goods-item v-for="item in goods" v-bind:item="item"></goods-item> -->
-                
+            <div v-for="item in filteredGoods">
+                <goods-item class="goods-item" v-bind:item="item"></goods-item>
+            <!-- <div class="goods-item" v-for="item in filteredGoods">   
                 <div class="item_id">{{ item.uin }}</div>
                 <div class="item_name">{{ item.name }}</div>
                 <div class="item_img"><img class="item_img" src="{{item.img}}"></div>
                 <div class="item_price">{{ item.price }}</div>
+            </div> -->
             </div>
         </div>
 
