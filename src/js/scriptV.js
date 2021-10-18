@@ -59,9 +59,23 @@ Vue.component('goods-item', {
             <div class="item_name">{{ item.name }}</div>
             <img src="item.img">
             <div class="item_price">{{ item.price }}</div>
+            <button class="add-button" type="button">добавить</button>
         </div>
         `
   }); 
+
+Vue.component('bask-item', {
+props: ['item'],
+template: `
+    <div>
+        <div class="item_id">{{ item.uin }}</div>
+        <div class="item_name">{{ item.name }}</div>
+        <img src="item.img">
+        <div class="item_price">{{ item.price }}</div>
+        <button class="del-button" type="button">удалить</button>
+    </div>
+    `
+}); 
 
 const shop = new Vue({
     el: '#shop',
