@@ -10,7 +10,7 @@ const GOODS = [
         uin: 'pr2',
         group: 'milkProd',
         name: 'Йогурт',
-        price: 32,
+        price: 35,
         img: 'src/catalog/images/pr2.jpg'
     },
     {
@@ -59,7 +59,7 @@ Vue.component('goods-item', {
             <div class="item_name">{{ item.name }}</div>
             <img src="item.img">
             <div class="item_price">{{ item.price }}</div>
-            <button class="add-button" type="button">добавить</button>
+            <custom-button>добавить</custom-button>
         </div>
         `
   }); 
@@ -72,10 +72,33 @@ template: `
         <div class="item_name">{{ item.name }}</div>
         <img src="item.img">
         <div class="item_price">{{ item.price }}</div>
-        <button class="del-button" type="button">удалить</button>
+        <custom-button>удалить</custom-button>
     </div>
     `
 }); 
+Vue.component('custom-button', {
+    data: function() {
+        return {
+            style: {
+                border: '1px solid black',
+                padding: '3px',
+                borderRadius: '5px',
+                cursor: 'pointer'
+            }
+        };
+    },
+    template: `
+        <button :style="style" @click="$emit('open')">
+            <slot></slot>
+        </button> `
+});
+Vue.component('calc-field', {
+    template: `
+        <div class="calc-goods-list">
+            <slot></slot>
+        </div>
+        `    
+});
 
 const shop = new Vue({
     el: '#shop',
@@ -103,7 +126,7 @@ const shop = new Vue({
     },    
     methods: {
         showBask: function() {
-            this.basketCardVision = !shop.basketCardVision;
+            this.basketCardVision = !this.basketCardVision;
         },
         goodsFiltered: function() {
             this.filteredGoods = this.goods.filter(({ name }) => {
