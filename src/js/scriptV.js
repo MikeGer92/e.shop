@@ -100,21 +100,21 @@ const shop = new Vue({
                 img: 'catalog/images/pr7.jpg'
             }
         ],
-        methods: {
-            showBask: function() {
-                shop.basketCardVision = !shop.basketCardVision;
-            },
-            goodsFiltered: function() {
-                shop.filteredGoods = shop.goods.filter(({ name }) => {
-                return new RegExp(shop.searchStr, 'i').test(name);
-                });
-            },
-        }, 
-        computed: {
-            coast: function() {
-                return 'coast';
-            }
-        }    
-            
-    }
+    },    
+    methods: {
+        showBask: function() {
+            this.basketCardVision = !shop.basketCardVision;
+        },
+        goodsFiltered: function() {
+            this.filteredGoods = this.goods.filter(({ name }) => {
+            return new RegExp(shop.searchStr, 'i').test(name);
+            });
+        },
+    }, 
+    computed: {
+        coast: function() {
+            return 'coast';
+        }
+    }    
+                
 });
