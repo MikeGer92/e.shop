@@ -13,34 +13,28 @@
     <div id="shop" class="shop">
         <header>
             <div class="header-item">
-            <button class="cart-button" type="button" v-on:click="methods.showBask">Корзина</button>
+            <custom-button @open="showBask">Корзина</custom-button>
             <div class="input-item">
                 <input type="text" class="goods-search" v-model="searchStr">
-                <button class="search-button" type="button" @click="methods.goodsFiltered">Искать</button>
+                <custom-button @open="goodsFiltered">Искать</custom-button>
             </div>
             </div>
         </header>
         <div class="goods-list">
-            <div class="goods-item" v-for="item in filteredGoods">
-                <!-- <goods-item v-for="item in goods" v-bind:item="item"></goods-item> -->
-                
-                <div class="item_id">{{ item.uin }}</div>
-                <div class="item_name">{{ item.name }}</div>
-                <div class="item_img"><img class="item_img" src="{{item.img}}"></div>
-                <div class="item_price">{{ item.price }}</div>
+            <div v-for="item in filteredGoods">
+                <goods-item class="goods-item" v-bind:item="item"></goods-item>
             </div>
         </div>
+        <calc-field >Стоимость <br>{{coast}} рублей</calc-field>
 
-        <div class="calc-goods-list"></div>
-
-        <div class="basket-goods-item" v-if="basketCardVision">
-            <div class="basket-card"  v-for="prod in basket">
-                <div class="item_id">{{ prod.uin }}</div>
-                <div class="item_name">{{ prod.name }}</div>
-                <div class="item_img"><img class="item_img" src="{{prod.img}}"></div>
-                <div class="item_price">{{ prod.price }}</div>
+        <div class="basket-goods-list" v-if="basketCardVision">
+            <div v-for="baskItem in basket">
+                <bask-item class="basket-card" v-bind:item="baskItem"></bask-item>
             </div>
+            <custom-button @open="showBask" :style="{width: '40px', height: '40px'}">X</custom-button>
         </div>
+        <calc-field v-if="basketCardVision">Стоимость товаров: <br> {{baskCoast}} рублей</calc-field>
+        
     </div>
     <script src="src/js/scriptV.js"></script>
 </body>
