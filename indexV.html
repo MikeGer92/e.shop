@@ -32,13 +32,12 @@
             </div>
         </div>
 
-        <div class="calc-goods-list"></div>
+        <div class="calc-goods-list">{{coast}}</div>
 
         <div class="basket-goods-list" v-if="basketCardVision">
             <div v-for="baskItem in basket">
                 <bask-item class="basket-card" v-bind:item="baskItem"></bask-item>
             </div>
-            
             
             <!-- <div class="basket-goods-item" v-if="basketCardVision"></div> -->
             <!-- <div class="basket-card"  v-for="prod in basket">
@@ -48,6 +47,8 @@
                 <div class="item_price">{{ prod.price }}</div>
             </div> -->
         </div>
+        <div class="calc-basket-list" v-if="basketCardVision" >{{baskCoast}}</div>
+        
     </div>
     <script src="src/js/scriptV.js"></script>
 </body>

@@ -113,8 +113,15 @@ const shop = new Vue({
     }, 
     computed: {
         coast: function() {
-            return 'coast';
-        }
+            return this.filteredGoods.reduce(function (price, product) {
+                return price + product.price * 1;
+            }, 0);
+        },
+        baskCoast: function() {
+            return this.basket.reduce(function (price, product) {
+                return price + product.price * 1;
+            }, 0);
+        },
     }    
                 
 });
