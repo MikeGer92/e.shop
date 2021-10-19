@@ -80,13 +80,6 @@ const GOODSLIST = [
 ];
 
 Vue.component('goods-item', {
-    mounted() {
-        serviceProm('GET', GOODS).then((newGoods) => {
-            const resGoods = transFormGoods(newGoods);
-            shop.goods = resGoods;
-            shop.filteredGoods = resGoods;
-            });
-    },
     props: ['item'],
     template: `
         <div>
@@ -158,6 +151,13 @@ const shop = new Vue({
                 img: 'catalog/images/pr7.jpg'
             }
         ],
+    },
+    mounted: function() {
+        serviceProm('GET', GOODS).then((newGoods) => {
+            const resGoods = transFormGoods(newGoods);
+            this.goods = resGoods;
+            this.filteredGoods = resGoods;
+            });
     },    
     methods: {
         showBask: function() {
