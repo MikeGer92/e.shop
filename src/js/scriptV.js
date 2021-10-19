@@ -1,4 +1,4 @@
-const GOODS = [
+const GOODSLIST = [
     {
         uin: 'pr1',
         group: 'milkProd',
@@ -103,8 +103,8 @@ Vue.component('calc-field', {
 const shop = new Vue({
     el: '#shop',
     data: {
-        goods: GOODS,
-        filteredGoods: GOODS,
+        goods: GOODSLIST,
+        filteredGoods: GOODSLIST,
         searchStr: '',
         basketCardVision: false,
         basket: [
@@ -148,3 +148,39 @@ const shop = new Vue({
     }    
                 
 });
+
+const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+const GOODS = '/catalogData.json';
+const BASKLIST = '/getBasket.json';
+const ADD = '/addToBasket.json';
+const DELETE = '/deleteFromBasket.json';
+
+
+const serviceProm = function(method, postfix){
+    return new Promise((resolve) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open(method, `${API}${postfix}`, true);
+        xhr.send();
+        xhr.onload = (event) => {
+            resolve(JSON.parse(event.target.responseText));
+        };
+    });
+};
+
+const transFormGoods = function(goods) {
+    return goods.map((_good) => {
+        return {
+            uin: _good.id_product,
+            name: _good.product_name,
+            price: _good.price
+        };
+    });
+};
+
+setTimeout(() => {
+    serviceProm('GET', GOODS).then((newGoods) => {
+        const resGoods = transFormGoods(newGoods);
+        shop.goods = resGoods;
+        shop.filteredGoods = resGoods;
+        });
+}, 5000);
