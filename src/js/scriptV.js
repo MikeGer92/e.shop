@@ -32,49 +32,49 @@ const GOODSLIST = [
         group: 'milkProd',
         name: 'Молоко',
         price: 60,
-        img: '../src/catalog/images/pr1.jpg'
+        img: '/src/catalog/images/pr1.jpg'
     },
     {
         uin: 'pr2',
         group: 'milkProd',
         name: 'Йогурт',
         price: 35,
-        img: 'src/catalog/images/pr2.jpg'
+        img: '/src/catalog/images/pr2.jpg'
     },
     {
         uin: 'pr3',
         group: 'breadProd',
         name: 'Багет',
         price: 40,
-        img: '../catalog/images/pr3.jpg'
+        img: '/src/catalog/images/pr3.jpg'
     },
     {
         uin: 'pr4',
         group: 'breadProd',
         name: 'Круасан',
         price: 220,
-        img: 'catalog/images/pr4.jpg'
+        img: '/src/catalog/images/pr4.jpg'
     },
     {
         uin: 'pr5',
         group: 'cheeseProd',
         name: 'Сыр',
         price: 640,
-        img: 'catalog/images/pr5.jpg'
+        img: '/src/catalog/images/pr5.jpg'
     },
     {
         uin: 'pr6',
         group: 'vegProd',
         name: 'Перец',
         price: 270,
-        img: 'catalog/images/pr6.jpg'
+        img: '/src/catalog/images/pr6.jpg'
     },
     {
         uin: 'pr7',
         group: 'fruProd',
         name: 'Яблоки',
         price: 80,
-        img: 'catalog/images/pr7.jpg'
+        img: '/src/catalog/images/pr7.jpg'
     },
 
 ];
@@ -85,7 +85,7 @@ Vue.component('goods-item', {
         <div>
             <div class="item_id">{{ item.uin }}</div>
             <div class="item_name">{{ item.name }}</div>
-            <img src="item.img">
+            <img class="item_img" v-bind:src="[ item.img ]">
             <div class="item_price">{{ item.price }}</div>
             <custom-button>добавить</custom-button>
         </div>
@@ -98,7 +98,7 @@ template: `
     <div>
         <div class="item_id">{{ item.uin }}</div>
         <div class="item_name">{{ item.name }}</div>
-        <img src="item.img">
+        <img class="item_img" v-bind:src="[ item.img ]">
         <div class="item_price">{{ item.price }}</div>
         <custom-button>удалить</custom-button>
     </div>
@@ -141,14 +141,14 @@ const shop = new Vue({
                 group: 'vegProd',
                 name: 'Перец',
                 price: 270,
-                img: 'catalog/images/pr6.jpg'
+                img: '/src/catalog/images/pr6.jpg'
             },
             {
                 uin: 'pr7',
                 group: 'fruProd',
                 name: 'Яблоки',
                 price: 80,
-                img: 'catalog/images/pr7.jpg'
+                img: '/src/catalog/images/pr7.jpg'
             }
         ],
     },
@@ -192,3 +192,4 @@ const shop = new Vue({
 //         shop.filteredGoods = resGoods;
 //         });
 // }, 5000);
+/* <img class="goods-photo" v-bind:src="[ item.img ]" v-bind:alt="[photo] */
