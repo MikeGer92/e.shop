@@ -3,15 +3,23 @@
 <head>
    <meta  charset="UTF-8">
    <title>eShop</title>
-   <script src="src/js/script.js"></script>
-   <link rel="stylesheet" href="src/css/style.css">
+   <link rel="stylesheet" href="src/css/style.min.css">
 </head>
 <body>
 <header>
-   <button class="cart-button" type="button">Корзина</button>
+   <div class="header-item">
+      <button class="cart-button" type="button">Корзина</button>
+      <div class="input-item">
+         <input type="text" class="goods-search" />
+         <button class="search-button" type="button">Искать</button>
+      </div>
+   </div>
 </header>
 <main>
    <div class="goods-list"></div>
+   <div class="calc-goods-list"></div>
+   <div class="basket"></div>
 </main>
+<script src="src/js/script3.js"></script>
 </body>
 </html>
