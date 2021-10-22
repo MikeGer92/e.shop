@@ -1,0 +1,52 @@
+[
+        {
+        "uin": "pr1",
+        "grou": "milkProd",
+        "name": "Молоко",
+        "price": 60,
+        "img": "/src/catalog/images/pr1.jpg"
+    },
+
+    {
+        "uin": "pr2",
+        "group": "milkProd",
+        "name": "Йогурт",
+        "price": 35,
+        "img": "/src/catalog/images/pr2.jpg"
+    },
+    {
+        "uin": "pr3",
+        "group": "breadProd",
+        "name": "Багет",
+        "price": 40,
+        "img": "/src/catalog/images/pr3.jpg"
+    },
+    {
+        "uin": "pr4",
+        "group": "breadProd",
+        "name": "Круасан",
+        "price": 220,
+        "img": "/src/catalog/images/pr4.jpg"
+    },
+    {
+        "uin": "pr5",
+        "group": "cheeseProd",
+        "name": "Сыр",
+        "price": 640,
+        "img": "/src/catalog/images/pr5.jpg"
+    },
+    {
+        "uin": "pr6",
+        "group": "vegProd",
+        "name": "Перец",
+        "price": 270,
+        "img": "/src/catalog/images/pr6.jpg"
+    },
+    {
+        "uin": "pr7",
+        "group": "fruProd",
+        "name": "Яблоки",
+        "price": 80,
+        "img": "/src/catalog/images/pr7.jpg"
+    }
+]

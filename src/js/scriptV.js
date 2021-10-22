@@ -1,14 +1,15 @@
 const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
-const GOODS = '/catalogData.json';
+const GOODS = 'http://localhost:8000/goods.json';
+const GB_GOODS = '/catalogData.json';
 const BASKLIST = '/getBasket.json';
 const ADD = '/addToBasket.json';
 const DELETE = '/deleteFromBasket.json';
 
 
-const serviceProm = function(method, postfix){
+const serviceProm = function(method, path){
     return new Promise((resolve) => {
         const xhr = new XMLHttpRequest();
-        xhr.open(method, `${API}${postfix}`, true);
+        xhr.open(method, GOODS, true);
         xhr.send();
         xhr.onload = (event) => {
             resolve(JSON.parse(event.target.responseText));
@@ -87,9 +88,8 @@ Vue.component('goods-item', {
             <div class="item_name">{{ item.name }}</div>
             <img class="item_img" v-bind:src="[ item.img ]">
             <div class="item_price">{{ item.price }}</div>
-            <custom-button>добавить</custom-button>
-        </div>
-        `
+            <custom-button>удалить</custom-button>
+        </div>   `
   }); 
 
 Vue.component('bask-item', {
@@ -154,9 +154,11 @@ const shop = new Vue({
     },
     mounted: function() {
         serviceProm('GET', GOODS).then((newGoods) => {
-            const resGoods = transFormGoods(newGoods);
-            this.goods = resGoods;
-            this.filteredGoods = resGoods;
+            // const resGoods = transFormGoods(newGoods);
+            // this.goods = resGoods;
+            // this.filteredGoods = resGoods;
+            this.goods = newGoods;
+            this.filteredGoods = newGoods;
             });
     },    
     methods: {
