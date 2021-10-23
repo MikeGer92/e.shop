@@ -5,6 +5,7 @@ const BASKLIST = 'http://localhost:8000/basketGoods.json';
 const ADD = '/addToBasket.json';
 const DELETE = '/deleteFromBasket.json';
 const  ADD_GOODS_PATH = 'http://localhost:8000/api';
+const  DEL_GOODS_PATH = 'http://localhost:8000/del';
 
 
 const serviceProm = function(method, path, body){
@@ -104,7 +105,7 @@ template: `
         <div class="item_name">{{ item.name }}</div>
         <img class="item_img" v-bind:src="[ item.img ]">
         <div class="item_price">{{ item.price }}</div>
-        <custom-button>удалить</custom-button>
+        <button @click="$emit('del', item)">удалить</button>
     </div>
     `
 }); 
@@ -166,6 +167,9 @@ const shop = new Vue({
         },
         addGood: function({uin, name, img, price}) {
             serviceProm('PATCH', ADD_GOODS_PATH, JSON.stringify({uin, name, img, price}));
+        },
+        delGood: function({uin, name, img, price}) {
+            serviceProm('PATCH', DEL_GOODS_PATH, JSON.stringify({uin, name, img, price}));
         }
     }, 
     computed: {

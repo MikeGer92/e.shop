@@ -50,6 +50,27 @@ const addItems = (path, item) => {
     });
 };
 
-module.exports = {addItems};
+// const removeGoodById = (arr, id) => {
+//     // console.log(arr.filter(e => e.id != id));
+//     return arr.filter(e => e.id != id);
+// };
+
+const delItems = (path, item) => {
+    return new Promise((resolve, reject) => {
+        readItems(path).then((items) => {
+            let resultItem = [...items];
+            var removeIndex = resultItem.map(function(item) { return item.id; })
+                       .indexOf(item.id);
+            resultItem.splice(removeIndex, 1);
+            writeItems(path, resultItem).then((_resultItem) => {
+                resolve(_resultItem);
+            }).catch((err) => {
+                reject(err);
+            });
+       });
+    });
+};
+
+module.exports = {addItems, delItems};
 
 // addItems(BASKET_GOODS_PATH, {id: 1, name: 'name', price: 270});
