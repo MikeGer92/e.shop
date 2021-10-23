@@ -22,7 +22,7 @@
         </header>
         <div class="goods-list">
             <div v-for="item in filteredGoods">
-                <goods-item class="goods-item" v-bind:item="item"></goods-item>
+                <goods-item class="goods-item" v-bind:item="item" @add="addGood"></goods-item>
             </div>
         </div>
         <calc-field >Стоимость <br>{{coast}} рублей</calc-field>
