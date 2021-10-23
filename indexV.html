@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>e.shop</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
     <link rel="stylesheet" href="src/css/styleV.min.css">
 </head>
@@ -22,14 +22,14 @@
         </header>
         <div class="goods-list">
             <div v-for="item in filteredGoods">
-                <goods-item class="goods-item" v-bind:item="item"></goods-item>
+                <goods-item class="goods-item" v-bind:item="item" @add="addGood"></goods-item>
             </div>
         </div>
         <calc-field >Стоимость <br>{{coast}} рублей</calc-field>
 
         <div class="basket-goods-list" v-if="basketCardVision">
             <div v-for="baskItem in basket">
-                <bask-item class="basket-card" v-bind:item="baskItem"></bask-item>
+                <bask-item class="basket-card" v-bind:item="baskItem" @del="delGood"></bask-item>
             </div>
             <custom-button @open="showBask" :style="{width: '40px', height: '40px'}">X</custom-button>
         </div>
